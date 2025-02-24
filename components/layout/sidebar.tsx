@@ -57,7 +57,7 @@ export function Sidebar() {
     >
       <div className="flex h-[60px] items-center border-b px-2">
         {!isCollapsed && (
-          <span className="text-lg font-semibold">Threat Intel</span>
+          <span className="text-lg font-semibold ml-4">SPYINT</span>
         )}
         <Button
           variant="ghost"

@@ -55,6 +55,9 @@ const chartConfig = {
       borderRadius: '6px',
       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
     },
+    itemStyle: {
+      color: 'inherit', // Inherit color from segment
+    },
   },
 };
 
@@ -103,6 +106,22 @@ const riskScoreHistory = [
   { date: 'Week 5', score: 80 },
   { date: 'Week 6', score: 88 },
 ];
+
+const gradientOffset = () => {
+  const dataMax = Math.max(...geographicData.map((i) => i.value));
+  const dataMin = Math.min(...geographicData.map((i) => i.value));
+
+  if (dataMax <= 0) {
+    return 0;
+  }
+  if (dataMin >= 0) {
+    return 1;
+  }
+
+  return dataMax / (dataMax - dataMin);
+};
+
+const off = gradientOffset();
 
 export default function Home() {
   const [timeRange, setTimeRange] = useState('6m');
@@ -176,24 +195,8 @@ export default function Home() {
                       <YAxis {...chartConfig.yAxis} />
                       <Tooltip {...chartConfig.tooltip} />
                       <Legend />
-                      <Line
-                        type="monotone"
-                        dataKey="threats"
-                        name="Detected Threats"
-                        stroke="hsl(var(--chart-1))"
-                        strokeWidth={2}
-                        dot={{ fill: "hsl(var(--chart-1))" }}
-                        activeDot={{ r: 6 }}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="resolved"
-                        name="Resolved Threats"
-                        stroke="hsl(var(--chart-2))"
-                        strokeWidth={2}
-                        dot={{ fill: "hsl(var(--chart-2))" }}
-                        activeDot={{ r: 6 }}
-                      />
+                      <Line type="monotone" dataKey="threats" stroke="#8884d8" />
+                      <Line type="monotone" dataKey="resolved" stroke="#82ca9d" />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -204,6 +207,12 @@ export default function Home() {
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={riskScoreHistory} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+                      <defs>
+                        <linearGradient id="colorRiskScore" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(var(--chart-3))" stopOpacity={0.8}/>
+                          <stop offset="95%" stopColor="hsl(var(--chart-3))" stopOpacity={0}/>
+                        </linearGradient>
+                      </defs>
                       <CartesianGrid {...chartConfig.grid} />
                       <XAxis {...chartConfig.xAxis} dataKey="date" />
                       <YAxis {...chartConfig.yAxis} domain={[0, 100]} />
@@ -213,8 +222,8 @@ export default function Home() {
                         dataKey="score"
                         name="Risk Score"
                         stroke="hsl(var(--chart-3))"
-                        fill="hsl(var(--chart-3))"
-                        fillOpacity={0.2}
+                        fillOpacity={1}
+                        fill="url(#colorRiskScore)"
                       />
                     </AreaChart>
                   </ResponsiveContainer>
@@ -242,7 +251,10 @@ export default function Home() {
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                       </Pie>
-                      <Tooltip {...chartConfig.tooltip} />
+                      <Tooltip
+                        {...chartConfig.tooltip}
+                        formatter={(value, name) => [`${value}`, `${name}`]}
+                      />
                       <Legend verticalAlign="bottom" height={36} />
                     </PieChart>
                   </ResponsiveContainer>
@@ -254,13 +266,19 @@ export default function Home() {
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={geographicData} layout="vertical" margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+                      <defs>
+                        <linearGradient id="colorGeo" x1="0" y1="0" x2="1" y2="0">
+                          <stop offset="0%" stopColor="hsl(var(--chart-4))" stopOpacity={0.8}/>
+                          <stop offset="100%" stopColor="hsl(var(--chart-5))" stopOpacity={0.8}/>
+                        </linearGradient>
+                      </defs>
                       <CartesianGrid {...chartConfig.grid} horizontal={true} />
                       <XAxis {...chartConfig.xAxis} type="number" />
                       <YAxis {...chartConfig.yAxis} dataKey="name" type="category" width={100} />
                       <Tooltip {...chartConfig.tooltip} />
                       <Bar
                         dataKey="value"
-                        fill="hsl(var(--chart-4))"
+                        fill="url(#colorGeo)"
                         radius={[0, 4, 4, 0]}
                         label={{ position: 'right', fill: 'hsl(var(--foreground))' }}
                       />
