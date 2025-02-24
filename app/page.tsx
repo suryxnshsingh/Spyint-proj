@@ -123,6 +123,32 @@ const gradientOffset = () => {
 
 const off = gradientOffset();
 
+const pieGradient = (
+  <defs>
+    <linearGradient id="colorPie" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stopColor="hsl(var(--chart-1))" stopOpacity={0.8} />
+      <stop offset="100%" stopColor="hsl(var(--chart-5))" stopOpacity={0.8} />
+    </linearGradient>
+  </defs>
+);
+
+const barGradients = (
+  <defs>
+    <linearGradient id="colorLow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stopColor="hsl(var(--chart-1))" stopOpacity={0.8} />
+      <stop offset="100%" stopColor="hsl(var(--chart-2))" stopOpacity={0.8} />
+    </linearGradient>
+    <linearGradient id="colorMedium" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stopColor="hsl(var(--chart-2))" stopOpacity={0.8} />
+      <stop offset="100%" stopColor="hsl(var(--chart-3))" stopOpacity={0.8} />
+    </linearGradient>
+    <linearGradient id="colorHigh" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stopColor="hsl(var(--chart-3))" stopOpacity={0.8} />
+      <stop offset="100%" stopColor="hsl(var(--chart-4))" stopOpacity={0.8} />
+    </linearGradient>
+  </defs>
+);
+
 export default function Home() {
   const [timeRange, setTimeRange] = useState('6m');
 
@@ -237,6 +263,7 @@ export default function Home() {
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+                      {pieGradient}
                       <Pie
                         data={threatTypeData}
                         cx="50%"
@@ -244,7 +271,7 @@ export default function Home() {
                         labelLine={false}
                         label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                         outerRadius={100}
-                        fill="#8884d8"
+                        fill="url(#colorPie)"
                         dataKey="value"
                       >
                         {threatTypeData.map((entry, index) => (
@@ -293,30 +320,40 @@ export default function Home() {
                 <h2 className="text-lg font-semibold mb-4">Transaction Risk Distribution</h2>
                 <div className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={transactionData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+                    <BarChart data={transactionData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                      {barGradients}
                       <CartesianGrid {...chartConfig.grid} />
                       <XAxis {...chartConfig.xAxis} dataKey="name" />
                       <YAxis {...chartConfig.yAxis} />
-                      <Tooltip {...chartConfig.tooltip} />
+                      <Tooltip
+                        {...chartConfig.tooltip}
+                        formatter={(value, name) => [`${value}`, `${name} Risk`]}
+                      />
                       <Legend />
                       <Bar
                         dataKey="low"
                         name="Low Risk"
                         stackId="a"
-                        fill="hsl(var(--chart-1))"
+                        fill="url(#colorLow)"
+                        stroke="hsl(var(--chart-1))"
+                        strokeWidth={1}
                         radius={[4, 4, 0, 0]}
                       />
                       <Bar
                         dataKey="medium"
                         name="Medium Risk"
                         stackId="a"
-                        fill="hsl(var(--chart-2))"
+                        fill="url(#colorMedium)"
+                        stroke="hsl(var(--chart-2))"
+                        strokeWidth={1}
                       />
                       <Bar
                         dataKey="high"
                         name="High Risk"
                         stackId="a"
-                        fill="hsl(var(--chart-3))"
+                        fill="url(#colorHigh)"
+                        stroke="hsl(var(--chart-3))"
+                        strokeWidth={1}
                         radius={[0, 0, 4, 4]}
                       />
                     </BarChart>
