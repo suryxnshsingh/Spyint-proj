@@ -135,16 +135,16 @@ const pieGradient = (
 const barGradients = (
   <defs>
     <linearGradient id="colorLow" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stopColor="hsl(var(--chart-1))" stopOpacity={0.8} />
-      <stop offset="100%" stopColor="hsl(var(--chart-2))" stopOpacity={0.8} />
+      <stop offset="0%" stopColor="#4caf50" stopOpacity={0.8} />
+      <stop offset="100%" stopColor="#81c784" stopOpacity={0.8} />
     </linearGradient>
     <linearGradient id="colorMedium" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stopColor="hsl(var(--chart-2))" stopOpacity={0.8} />
-      <stop offset="100%" stopColor="hsl(var(--chart-3))" stopOpacity={0.8} />
+      <stop offset="0%" stopColor="#ff9800" stopOpacity={0.8} />
+      <stop offset="100%" stopColor="#ffb74d" stopOpacity={0.8} />
     </linearGradient>
     <linearGradient id="colorHigh" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stopColor="hsl(var(--chart-3))" stopOpacity={0.8} />
-      <stop offset="100%" stopColor="hsl(var(--chart-4))" stopOpacity={0.8} />
+      <stop offset="0%" stopColor="#f44336" stopOpacity={0.8} />
+      <stop offset="100%" stopColor="#e57373" stopOpacity={0.8} />
     </linearGradient>
   </defs>
 );
@@ -335,26 +335,27 @@ export default function Home() {
                         name="Low Risk"
                         stackId="a"
                         fill="url(#colorLow)"
-                        stroke="hsl(var(--chart-1))"
+                        stroke="#4caf50"
                         strokeWidth={1}
-                        radius={[4, 4, 0, 0]}
+                        radius={[10, 10, 10, 10]}
                       />
                       <Bar
                         dataKey="medium"
                         name="Medium Risk"
                         stackId="a"
                         fill="url(#colorMedium)"
-                        stroke="hsl(var(--chart-2))"
+                        stroke="#ff9800"
                         strokeWidth={1}
+                        radius={[10, 10, 10, 10]}
                       />
                       <Bar
                         dataKey="high"
                         name="High Risk"
                         stackId="a"
                         fill="url(#colorHigh)"
-                        stroke="hsl(var(--chart-3))"
+                        stroke="#f44336"
                         strokeWidth={1}
-                        radius={[0, 0, 4, 4]}
+                        radius={[10, 10, 10, 10]}
                       />
                     </BarChart>
                   </ResponsiveContainer>

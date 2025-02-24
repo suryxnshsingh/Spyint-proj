@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Search, Bell, User } from 'lucide-react';
+import { Search, Bell, User, Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 export function Header() {
@@ -29,6 +29,9 @@ export function Header() {
         <Button variant="ghost" size="icon">
           <Bell className="h-4 w-4" />
         </Button>
+        <Button variant="ghost" size="icon" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+          {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon">
@@ -38,9 +41,6 @@ export function Header() {
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-              Toggle Theme
-            </DropdownMenuItem>
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Sign out</DropdownMenuItem>
