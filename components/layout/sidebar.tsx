@@ -55,7 +55,7 @@ export function Sidebar() {
         isCollapsed ? 'w-[60px]' : 'w-[240px]'
       )}
     >
-      <div className="flex h-[60px] items-center border-b px-4">
+      <div className="flex h-[60px] items-center border-b px-2">
         {!isCollapsed && (
           <span className="text-lg font-semibold">Threat Intel</span>
         )}
@@ -72,20 +72,20 @@ export function Sidebar() {
           )}
         </Button>
       </div>
-      <ScrollArea className="flex-1 pt-4">
-        <div className="space-y-2 px-2">
+      <ScrollArea className="flex-1 pt-2">
+        <div className="space-y-1 px-1">
           {sidebarItems.map((item) => (
             <Link key={item.href} href={item.href}>
               <Button
                 variant={pathname === item.href ? 'secondary' : 'ghost'}
                 className={cn(
-                  'w-full justify-start',
+                  'w-full justify-start hover:bg-muted transition-colors',
                   isCollapsed && 'justify-center'
                 )}
               >
-                <item.icon className="h-4 w-4" />
+                <item.icon className={cn('transition-all', isCollapsed ? 'h-4 w-4' : 'h-5 w-5')} />
                 {!isCollapsed && (
-                  <span className="ml-2">{item.title}</span>
+                  <span className="ml-2 text-sm font-medium">{item.title}</span>
                 )}
               </Button>
             </Link>
