@@ -119,40 +119,44 @@ export function Sidebar() {
           <Separator />
 
           {/* Help & Support */}
-          <div className={cn(
-            'flex items-center gap-3',
-            isCollapsed ? 'justify-center' : 'justify-start'
-          )}>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost" size="sm" className="w-full justify-start">
-                    <HelpCircle className="h-4 w-4" />
-                    {!isCollapsed && <span className="ml-2">Help & Support</span>}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>Access help and documentation</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
+          {!isCollapsed && (
+            <div className={cn(
+              'flex items-center gap-3',
+              isCollapsed ? 'justify-center' : 'justify-start'
+            )}>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="ghost" size="sm" className="w-full justify-start">
+                      <HelpCircle className="h-4 w-4" />
+                      {!isCollapsed && <span className="ml-2">Help & Support</span>}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>Access help and documentation</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+          )}
 
           {/* Alert Center */}
-          <div className={cn(
-            'flex items-center gap-3',
-            isCollapsed ? 'justify-center' : 'justify-start'
-          )}>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost" size="sm" className="w-full justify-start">
-                    <AlertCircle className="h-4 w-4" />
-                    {!isCollapsed && <span className="ml-2">Alert Center</span>}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>View system alerts and notifications</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
+          {!isCollapsed && (
+            <div className={cn(
+              'flex items-center gap-3',
+              isCollapsed ? 'justify-center' : 'justify-start'
+            )}>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="ghost" size="sm" className="w-full justify-start">
+                      <AlertCircle className="h-4 w-4" />
+                      {!isCollapsed && <span className="ml-2">Alert Center</span>}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>View system alerts and notifications</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
+          )}
         </div>
       </div>
     </div>
