@@ -40,7 +40,7 @@ const sidebarItems = [
   {
     title: 'Settings',
     icon: Settings,
-    href: '/settings',
+    href: '#',
   },
 ];
 
